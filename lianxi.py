@@ -5,7 +5,7 @@ from time import sleep
 file_info = open('info.txt','r')
 
 value = file_info.readlines()
-
+#print(value)
 file_info.close()
 
 for serch in value:
