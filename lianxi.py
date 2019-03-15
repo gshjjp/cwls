@@ -1,25 +1,29 @@
 #coding=utf8
 from selenium import webdriver
 from time import sleep
+import csv
 
-file_info = open('info.txt','r')
 
-value = file_info.readlines()
-#print(value)
-file_info.close()
+my_file = 'info.csv'
+out = open(my_file,'r')
+data = csv.reader(out,dialect='excel')
+for line in data:
 
-for serch in value:
-    driver = webdriver.Chrome()
-    driver.implicitly_wait(10)
-    driver.get("https://www.baidu.com")
-    username = serch.split(',')[0]
-    password = serch.split(',')[1]
-    print(username,password)
+    for i in (0,1):
+        print(line[i])
+        driver = webdriver.Chrome()
+        driver.implicitly_wait(10)
+        driver.get("https://www.baidu.com")
+        driver.find_element_by_id('kw').send_keys(line[i])
+        driver.find_element_by_id('su').click()
+        sleep(5)
+        driver.quit()
 
-    driver.find_element_by_id('kw').send_keys(serch.split(',')[0])
-    driver.find_element_by_id('su').click()
-    sleep(5)
-    driver.quit()
+out.close()
+
+
+
+
 
 
 
